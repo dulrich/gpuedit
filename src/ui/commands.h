@@ -204,6 +204,35 @@ struct GUIHeader;
 typedef struct GUIHeader GUIHeader;
 
 
+enum cmdAmtType {
+	GUICMD_AMT_NULL = 0,
+	GUICMD_AMT_AMT,
+	GUICMD_AMT_STR,
+	GUICMD_AMT_PSTR,
+	GUICMD_AMT_META
+}
+
+typedef struct GUI_CmdMetadata {
+	uint16_t element;
+	uint32_t cmd;
+	
+	char* name;
+	char* desc;
+	char* mangled_name;
+	char deprecated;
+	
+	cmdAmtType amtType;
+//	union {
+//		long amt;
+//		char* str;
+//		char** pstr;
+//		struct GUI_Cmd* metaCmds; // terminated by an entry with src_type=0
+//	} defaultAmt;
+	
+	uint64_t defaultFlags;
+} GUI_CmdMetadata;
+
+
 #define GUI_CMD_RATSYM(btn, reps) ((1 << 30) | ((reps & 0xff) << 15) | (btn & 0xff))
 #define GUI_CMD_EXTSYM(a) ((1 << 29) | (a))
 
@@ -222,6 +251,9 @@ int GUIManager_AddCommand(GUIManager* gm, char* elemname, char* name, uint32_t i
 int GUIManager_AddCommandElement(GUIManager* gm, char* name, uint16_t id);
 uint16_t GUIManager_AddCommandMode(GUIManager* gm, char* name);
 uint32_t GUIManager_AddCommandFlag(GUIManager* gm, char* name);
+
+void CommandMetadata_loadJSON(GUIManager* gm, json_value_t* root);
+void CommandMetadata_loadJSONFile(GUIManager* gm, char* path);
 
 void CommandList_loadJSON(GUIManager* gm, json_value_t* root);
 void CommandList_loadKeyConfigJSON(GUIManager* gm, json_value_t* root);

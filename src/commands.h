@@ -16,6 +16,7 @@
 	X(FileBrowser) \
 	X(FuzzyMatcher) \
 	X(GrepOpen) \
+	X(CommandConfig) \
 	X(Hexedit) \
 	X(Calc) \
 	X(Debug) \
@@ -159,6 +160,8 @@
 	X(GrepOpen, MoveCursorV) \
 	X(GrepOpen, OpenFile) \
 	\
+	X(Commandconfig, Exit) \
+	\
 	X(Main, EnterLayoutMode) \
 	X(Main, ExitLayoutMode) \
 	X(Main, ExpandPanesX) \
@@ -169,6 +172,7 @@
 	X(Main, OpenFileBrowser) \
 	X(Main, FuzzyOpener) \
 	X(Main, GrepOpen) \
+	X(Main, CommandConfig) \
 	X(Main, Calculator) \
 	X(Main, Terminal) \
 	X(Main, SaveActiveTab) \

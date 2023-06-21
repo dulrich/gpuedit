@@ -180,6 +180,7 @@ void AppState_Init(AppState* as, int argc, char* argv[]) {
 	GUIManager_Init(as->gui, guiSettings);
 	
 	CommandList_loadJSONFile(as->gui, as->gs->commandsPath);
+	CommandMetadata_loadJSONFile(as->gui, as->gs->commandsMetadataPath);
 	
 	
 	as->bufferCache = BufferCache_New();

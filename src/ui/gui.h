@@ -276,6 +276,7 @@ typedef struct GUIManager {
 	VEC(GUI_CmdElementInfo) cmdElements;
 	HT(int) cmdElementLookup;
 	VEC(GUI_CmdModeInfo) commandModes;
+	HT(char*, GUI_CmdMetadata) cmdMetadataLookup;
 	GUI_Cmd tmpCmd;
 	
 	VEC(struct {

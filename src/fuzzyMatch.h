@@ -2,8 +2,15 @@
 #define __gpuedit_fuzzy_match_h__
 
 typedef struct {
-	char* basepath;
-	char* filepath;
+	union {
+		char* basepath;
+		char* prefix;
+	};
+	union {
+		char* filepath;
+		char* text;
+	};
+	void* data;
 } fcandidate;
 
 typedef struct {

@@ -608,7 +608,43 @@ void CommandList_loadJSON(GUIManager* gm, json_value_t* root) {
 }
 
 
+void CommandMetadata_loadJSONFile(GUIManager* gm, char* path) {
+	json_file_t* jsf;
 
+	jsf = json_load_path(path);
+	
+	if(!jsf) {
+		fprintf(stderr, "Fatal error: could not load commands metadata file '%s'.\n", path);
+		exit(1);
+	}
+	
+	CommandMetadata_loadJSON(gm, jsf->root);
+	json_file_free(jsf);
+}
+
+
+void CommandMetadata_loadJSON(GUIManager* gm, json_value_t* root) {
+	json_value_t* cmds_v;
+	
+	cmds_v = json_obj_get_val(root, "commands");
+	if(!cmds_v) return;
+	
+	if(root->type != JSON_TYPE_ARRAY) {
+		L1("Command Metadata List json root must be an array.\n");
+		return;
+	}
+	
+	int i = 0;
+
+	json_link_t* link = root->arr.head;
+	json_value_t* v;
+	for(;link; link = link->next) {
+		GUI_CmdMetadata cmd = {0};
+		
+		if(!read_command_metadata_entry(gm, link->v, &cmd, 0)) continue;
+		HT_set(&gm->cmdMetadataLookup, cmd.mangled_name, cmd);
+	}
+}
 
 	
 static int read_command_entry(GUIManager* gm, json_value_t* entry, GUI_Cmd* cmd, int validate) {
