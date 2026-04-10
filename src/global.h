@@ -153,7 +153,7 @@ static inline void spin_unlock(_Atomic u32* sl) {
 
 
 
-#define debug_break *((char*)0) = "debug break";
+//#define debug_break *((char*)0) = "debug break";
 
 // prints a backtrace to the provided file descriptor
 void printbt(int fd);
